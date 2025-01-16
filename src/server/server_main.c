@@ -6,15 +6,14 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:17:48 by lseeger           #+#    #+#             */
-/*   Updated: 2025/01/16 13:18:16 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/01/16 13:34:27 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include.h"
 
-int	main(int argc, char **argv)
+int	main(void)
 {
-	(void)argc;
-	(void)argv;
+	ft_printf("%i\n", getpid());
 	return (0);
 }
