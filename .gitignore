@@ -4,6 +4,10 @@
 *.a
 obj/
 .vscode/
+/server
+/client
+/bonus_server
+/bonus_client
 
 # Prerequisites
 *.d

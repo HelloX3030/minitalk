@@ -1,24 +1,30 @@
 CC := cc
 CFLAGS := -Wall -Wextra -Werror # -Ofast
 DEBUG_FLAGS := -g -O0
-NAME := 
-BONUS_NAME := checker
+SERVER := server
+CLIENT := client
+BONUS_SERVER := bonus_server
+BONUS_CLIENT := bonus_client
 
 # .h files
 H_FILES := include/include.h
 
 # .c files
-SRC_DIR := src/base src/default src/bonus
+SRC_DIR := src/base src/server src/client src/bonus_server src/bonus_client
 vpath %.c $(SRC_DIR)
 BASE_SRC_FILES := base_utils.c
-DEFAULT_SRC_FILES := default_main.c
-BONUS_SRC_FILES := bonus_main.c
+SERVER_SRC_FILES := server_main.c
+CLIENT_SRC_FILES := client_main.c
+BONUS_SERVER_SRC_FILES := bonus_server_main.c
+BONUS_CLIENT_SRC_FILES := bonus_client_main.c
 
 # .o files
 OBJ_DIR := obj
 BASE_OBJ_FILES := $(addprefix $(OBJ_DIR)/, $(BASE_SRC_FILES:.c=.o))
-DEFAULT_OBJ_FILES := $(addprefix $(OBJ_DIR)/, $(DEFAULT_SRC_FILES:.c=.o))
-BONUS_OBJ_FILES := $(addprefix $(OBJ_DIR)/, $(BONUS_SRC_FILES:.c=.o))
+SERVER_OBJ_FILES := $(addprefix $(OBJ_DIR)/, $(SERVER_SRC_FILES:.c=.o))
+CLIENT_OBJ_FILES := $(addprefix $(OBJ_DIR)/, $(CLIENT_SRC_FILES:.c=.o))
+BONUS_SERVER_OBJ_FILES := $(addprefix $(OBJ_DIR)/, $(BONUS_SERVER_SRC_FILES:.c=.o))
+BONUS_CLIENT_OBJ_FILES := $(addprefix $(OBJ_DIR)/, $(BONUS_CLIENT_SRC_FILES:.c=.o))
 
 # libft
 LIBFT_DIR := libft
@@ -31,18 +37,26 @@ LDFLAGS := -L$(LIBFT_DIR)
 LDLIBS := -lft
 
 # all
-all: $(NAME)
+all: $(SERVER) $(CLIENT)
 
 # bonus
-bonus: $(BONUS_NAME)
+bonus: $(BONUS_SERVER) $(BONUS_CLIENT)
 
-# Link default
-$(NAME): $(LIBS) $(BASE_OBJ_FILES) $(DEFAULT_OBJ_FILES)
-	$(CC) $(BASE_OBJ_FILES) $(DEFAULT_OBJ_FILES) $(LDFLAGS) $(LDLIBS) -o $(NAME)
+# Link server
+$(SERVER): $(LIBS) $(BASE_OBJ_FILES) $(SERVER_OBJ_FILES)
+	$(CC) $(BASE_OBJ_FILES) $(SERVER_OBJ_FILES) $(LDFLAGS) $(LDLIBS) -o $(SERVER)
 
-# Link bonus
-$(BONUS_NAME): $(LIBS) $(BASE_OBJ_FILES) $(BONUS_OBJ_FILES)
-	$(CC) $(BASE_OBJ_FILES) $(BONUS_OBJ_FILES) $(LDFLAGS) $(LDLIBS) -o $(BONUS_NAME)
+# Link client
+$(CLIENT): $(LIBS) $(BASE_OBJ_FILES) $(CLIENT_OBJ_FILES)
+	$(CC) $(BASE_OBJ_FILES) $(CLIENT_OBJ_FILES) $(LDFLAGS) $(LDLIBS) -o $(CLIENT)
+
+# Link bonus server
+$(BONUS_SERVER): $(LIBS) $(BASE_OBJ_FILES) $(BONUS_SERVER_OBJ_FILES)
+	$(CC) $(BASE_OBJ_FILES) $(BONUS_SERVER_OBJ_FILES) $(LDFLAGS) $(LDLIBS) -o $(BONUS_SERVER)
+
+# Link bonus client
+$(BONUS_CLIENT): $(LIBS) $(BASE_OBJ_FILES) $(BONUS_CLIENT_OBJ_FILES)
+	$(CC) $(BASE_OBJ_FILES) $(BONUS_CLIENT_OBJ_FILES) $(LDFLAGS) $(LDLIBS) -o $(BONUS_CLIENT)
 
 # Compile BASE_OBJ_FILES
 $(OBJ_DIR)/%.o: %.c $(H_FILES) $(LIBFT) | $(OBJ_DIR)
@@ -62,7 +76,7 @@ clean:
 # fclean
 fclean:
 	$(RM) -rf $(OBJ_DIR)
-	$(RM) -f $(NAME) $(BONUS_NAME)
+	$(RM) -f $(SERVER) $(CLIENT) $(BONUS_SERVER) $(BONUS_CLIENT)
 	$(MAKE) -C $(LIBFT_DIR) fclean
 
 # re
