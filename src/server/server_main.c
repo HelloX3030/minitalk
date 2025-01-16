@@ -6,23 +6,11 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:17:48 by lseeger           #+#    #+#             */
-/*   Updated: 2025/01/16 14:42:14 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/01/16 16:46:03 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include.h"
-
-static void	handle_sig_one(char *c, int *i)
-{
-	*c |= 1 << *i;
-	(*i)++;
-}
-
-static void	handle_sig_two(char *c, int *i)
-{
-	*c &= ~(1 << *i);
-	(*i)++;
-}
 
 static void	handle_sig(int signum)
 {
@@ -30,9 +18,10 @@ static void	handle_sig(int signum)
 	static int	i = 0;
 
 	if (signum == SIGUSR1)
-		handle_sig_one(&c, &i);
+		set_one(&c, i);
 	else if (signum == SIGUSR2)
-		handle_sig_two(&c, &i);
+		set_zero(&c, i);
+	i++;
 	if (i >= 8)
 	{
 		ft_printf("%c", c);
