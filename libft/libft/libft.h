@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 11:25:04 by lseeger           #+#    #+#             */
-/*   Updated: 2025/01/16 13:38:36 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/01/16 14:11:38 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int					ft_printf(const char *s, ...);
 char				*get_next_line(int fd);
 
 // custom functions
+void				ft_printstr_fd(char *str, int fd);
 bool				ft_aisi(char *str);
 bool				ft_aish(char *str);
 uint32_t			ft_atocolor(const char *str);

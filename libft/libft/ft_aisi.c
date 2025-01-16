@@ -6,7 +6,7 @@
 /*   By: lseeger <lseeger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 16:11:20 by lseeger           #+#    #+#             */
-/*   Updated: 2025/01/13 16:28:48 by lseeger          ###   ########.fr       */
+/*   Updated: 2025/01/16 13:56:43 by lseeger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,20 @@
 
 static bool	check_limits(long long result, bool is_negative)
 {
-	if (is_negative && -result < INT_MIN)
-		return (false);
-	else if (!is_negative && result > INT_MAX)
-		return (false);
+	long long	check;
+
+	if (is_negative)
+	{
+		check = result * -1;
+		if (check < INT_MIN)
+			return (false);
+	}
+	else
+	{
+		check = result;
+		if (check > INT_MAX)
+			return (false);
+	}
 	return (true);
 }
 
